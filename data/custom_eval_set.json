@@ -1,0 +1,702 @@
+[
+  {
+    "id": 1,
+    "tier": "single_table",
+    "question": "How many customers are there in total?",
+    "sql": "SELECT COUNT(*) FROM customers;",
+    "row_count": 1
+  },
+  {
+    "id": 2,
+    "tier": "single_table",
+    "question": "List the full customer records for everyone in the 'gold' loyalty tier.",
+    "sql": "SELECT * FROM customers WHERE loyalty_tier = 'gold';",
+    "row_count": 52
+  },
+  {
+    "id": 3,
+    "tier": "single_table",
+    "question": "How many restaurants serve Italian cuisine?",
+    "sql": "SELECT COUNT(*) FROM restaurants WHERE cuisine_type = 'Italian';",
+    "row_count": 1
+  },
+  {
+    "id": 4,
+    "tier": "single_table",
+    "question": "What is the average rating of all active restaurants?",
+    "sql": "SELECT AVG(avg_rating) FROM restaurants WHERE is_active = TRUE;",
+    "row_count": 1
+  },
+  {
+    "id": 5,
+    "tier": "single_table",
+    "question": "How many drivers use a bike as their vehicle?",
+    "sql": "SELECT COUNT(*) FROM drivers WHERE vehicle_type = 'bike';",
+    "row_count": 1
+  },
+  {
+    "id": 6,
+    "tier": "single_table",
+    "question": "List the names of all drivers based in Chicago.",
+    "sql": "SELECT name FROM drivers WHERE city = 'Chicago';",
+    "row_count": 7
+  },
+  {
+    "id": 7,
+    "tier": "single_table",
+    "question": "How many orders have a status of 'cancelled'?",
+    "sql": "SELECT COUNT(*) FROM orders WHERE status = 'cancelled';",
+    "row_count": 1
+  },
+  {
+    "id": 8,
+    "tier": "single_table",
+    "question": "What is the total amount of all delivered orders?",
+    "sql": "SELECT SUM(total_amount) FROM orders WHERE status = 'delivered';",
+    "row_count": 1
+  },
+  {
+    "id": 9,
+    "tier": "single_table",
+    "question": "How many menu items cost more than $20?",
+    "sql": "SELECT COUNT(*) FROM menu_items WHERE price > 20;",
+    "row_count": 1
+  },
+  {
+    "id": 10,
+    "tier": "single_table",
+    "question": "List the full details of all promotions with a discount percentage greater than 20.",
+    "sql": "SELECT * FROM promotions WHERE discount_pct > 20;",
+    "row_count": 6
+  },
+  {
+    "id": 11,
+    "tier": "single_table",
+    "question": "How many addresses are marked as default?",
+    "sql": "SELECT COUNT(*) FROM addresses WHERE is_default = TRUE;",
+    "row_count": 1
+  },
+  {
+    "id": 12,
+    "tier": "single_table",
+    "question": "What is the maximum price among all menu items?",
+    "sql": "SELECT MAX(price) FROM menu_items;",
+    "row_count": 1
+  },
+  {
+    "id": 13,
+    "tier": "single_table",
+    "question": "How many payments were made using 'paypal'?",
+    "sql": "SELECT COUNT(*) FROM payments WHERE payment_method = 'paypal';",
+    "row_count": 1
+  },
+  {
+    "id": 14,
+    "tier": "single_table",
+    "question": "List the full customer records for everyone in the 'platinum' loyalty tier.",
+    "sql": "SELECT * FROM customers WHERE loyalty_tier = 'platinum';",
+    "row_count": 41
+  },
+  {
+    "id": 15,
+    "tier": "single_table",
+    "question": "How many driver shifts took place in Seattle?",
+    "sql": "SELECT COUNT(*) FROM driver_shifts WHERE city = 'Seattle';",
+    "row_count": 1
+  },
+  {
+    "id": 16,
+    "tier": "single_table",
+    "question": "What is the minimum discount percentage across all promotions?",
+    "sql": "SELECT MIN(discount_pct) FROM promotions;",
+    "row_count": 1
+  },
+  {
+    "id": 17,
+    "tier": "single_table",
+    "question": "How many ratings have a restaurant_rating of 5?",
+    "sql": "SELECT COUNT(*) FROM ratings WHERE restaurant_rating = 5;",
+    "row_count": 1
+  },
+  {
+    "id": 18,
+    "tier": "single_table",
+    "question": "List the distinct payment methods used.",
+    "sql": "SELECT DISTINCT payment_method FROM payments;",
+    "row_count": 4
+  },
+  {
+    "id": 19,
+    "tier": "single_table",
+    "question": "How many restaurants are currently inactive?",
+    "sql": "SELECT COUNT(*) FROM restaurants WHERE is_active = FALSE;",
+    "row_count": 1
+  },
+  {
+    "id": 20,
+    "tier": "single_table",
+    "question": "What is the average price of menu items in the 'dessert' category?",
+    "sql": "SELECT AVG(price) FROM menu_items WHERE category = 'dessert';",
+    "row_count": 1
+  },
+  {
+    "id": 21,
+    "tier": "join",
+    "question": "List the names of customers along with the city of their default address.",
+    "sql": "SELECT c.name, a.city FROM customers c JOIN addresses a ON c.customer_id = a.customer_id WHERE a.is_default = TRUE;",
+    "row_count": 200
+  },
+  {
+    "id": 22,
+    "tier": "join",
+    "question": "Show each order's ID along with the name of the restaurant it was placed at.",
+    "sql": "SELECT o.order_id, r.name FROM orders o JOIN restaurants r ON o.restaurant_id = r.restaurant_id;",
+    "row_count": 1000
+  },
+  {
+    "id": 23,
+    "tier": "join",
+    "question": "List the names of drivers who delivered orders with status 'delivered'.",
+    "sql": "SELECT DISTINCT d.name FROM drivers d JOIN orders o ON d.driver_id = o.driver_id WHERE o.status = 'delivered';",
+    "row_count": 38
+  },
+  {
+    "id": 24,
+    "tier": "join",
+    "question": "Show the restaurant name, cuisine type, and item name for menu items priced above $25.",
+    "sql": "SELECT r.name, r.cuisine_type, m.name AS item_name, m.price FROM menu_items m JOIN restaurants r ON m.restaurant_id = r.restaurant_id WHERE m.price > 25;",
+    "row_count": 148
+  },
+  {
+    "id": 25,
+    "tier": "join",
+    "question": "List customer names along with the payment method used for each of their orders.",
+    "sql": "SELECT c.name, p.payment_method FROM customers c JOIN orders o ON c.customer_id = o.customer_id JOIN payments p ON o.order_id = p.order_id;",
+    "row_count": 1000
+  },
+  {
+    "id": 26,
+    "tier": "join",
+    "question": "Show driver names and shift start times for shifts in 'Denver'.",
+    "sql": "SELECT d.name, ds.start_time FROM drivers d JOIN driver_shifts ds ON d.driver_id = ds.driver_id WHERE ds.city = 'Denver';",
+    "row_count": 47
+  },
+  {
+    "id": 27,
+    "tier": "join",
+    "question": "List the restaurant name and average rating for each order that used a promotion.",
+    "sql": "SELECT r.name, r.avg_rating FROM orders o JOIN restaurants r ON o.restaurant_id = r.restaurant_id JOIN order_promotions op ON o.order_id = op.order_id;",
+    "row_count": 250
+  },
+  {
+    "id": 28,
+    "tier": "join",
+    "question": "Show the promo code applied to each order along with the order's total amount.",
+    "sql": "SELECT p.code, o.total_amount FROM orders o JOIN order_promotions op ON o.order_id = op.order_id JOIN promotions p ON op.promo_id = p.promo_id;",
+    "row_count": 250
+  },
+  {
+    "id": 29,
+    "tier": "join",
+    "question": "List customer names and their restaurant ratings for orders they rated.",
+    "sql": "SELECT c.name, r.restaurant_rating FROM customers c JOIN ratings r ON c.customer_id = r.customer_id;",
+    "row_count": 580
+  },
+  {
+    "id": 30,
+    "tier": "join",
+    "question": "Show the item names and quantities ordered in order ID 1.",
+    "sql": "SELECT m.name, oi.quantity FROM order_items oi JOIN menu_items m ON oi.item_id = m.item_id WHERE oi.order_id = 1;",
+    "row_count": 4
+  },
+  {
+    "id": 31,
+    "tier": "join",
+    "question": "List the names of customers in 'Austin' and the restaurants they've ordered from.",
+    "sql": "SELECT DISTINCT c.name, r.name FROM customers c JOIN orders o ON c.customer_id = o.customer_id JOIN restaurants r ON o.restaurant_id = r.restaurant_id WHERE c.city = 'Austin';",
+    "row_count": 171
+  },
+  {
+    "id": 32,
+    "tier": "join",
+    "question": "Show the driver name and vehicle type for each order still 'in_progress'.",
+    "sql": "SELECT d.name, d.vehicle_type FROM drivers d JOIN orders o ON d.driver_id = o.driver_id WHERE o.status = 'in_progress';",
+    "row_count": 91
+  },
+  {
+    "id": 33,
+    "tier": "join",
+    "question": "List restaurant names and the categories of menu items they offer priced under $10.",
+    "sql": "SELECT DISTINCT r.name, m.category FROM restaurants r JOIN menu_items m ON r.restaurant_id = m.restaurant_id WHERE m.price < 10;",
+    "row_count": 92
+  },
+  {
+    "id": 34,
+    "tier": "join",
+    "question": "Show customer emails and the street address used for delivery on each order.",
+    "sql": "SELECT c.email, a.street FROM customers c JOIN orders o ON c.customer_id = o.customer_id JOIN addresses a ON o.address_id = a.address_id;",
+    "row_count": 1000
+  },
+  {
+    "id": 35,
+    "tier": "join",
+    "question": "List the comment and driver rating left for orders delivered by drivers using a 'car'.",
+    "sql": "SELECT r.comment, r.driver_rating FROM ratings r JOIN orders o ON r.order_id = o.order_id JOIN drivers d ON o.driver_id = d.driver_id WHERE d.vehicle_type = 'car';",
+    "row_count": 124
+  },
+  {
+    "id": 36,
+    "tier": "join",
+    "question": "Show the restaurant name and total amount for orders paid with 'credit_card'.",
+    "sql": "SELECT r.name, o.total_amount FROM orders o JOIN restaurants r ON o.restaurant_id = r.restaurant_id JOIN payments p ON o.order_id = p.order_id WHERE p.payment_method = 'credit_card';",
+    "row_count": 248
+  },
+  {
+    "id": 37,
+    "tier": "join",
+    "question": "List the customer name and email for every order placed at a Thai restaurant.",
+    "sql": "SELECT DISTINCT c.name, c.email FROM customers c JOIN orders o ON c.customer_id = o.customer_id JOIN restaurants r ON o.restaurant_id = r.restaurant_id WHERE r.cuisine_type = 'Thai';",
+    "row_count": 134
+  },
+  {
+    "id": 38,
+    "tier": "join",
+    "question": "List the promo code and discount percentage for promotions applied to cancelled orders.",
+    "sql": "SELECT p.code, p.discount_pct FROM promotions p JOIN order_promotions op ON p.promo_id = op.promo_id JOIN orders o ON op.order_id = o.order_id WHERE o.status = 'cancelled';",
+    "row_count": 12
+  },
+  {
+    "id": 39,
+    "tier": "join",
+    "question": "Show the restaurant name and menu item name for every item in the 'beverage' category.",
+    "sql": "SELECT r.name, m.name FROM restaurants r JOIN menu_items m ON r.restaurant_id = m.restaurant_id WHERE m.category = 'beverage';",
+    "row_count": 95
+  },
+  {
+    "id": 40,
+    "tier": "join",
+    "question": "List customer names and the payment status of each of their payments.",
+    "sql": "SELECT c.name, p.payment_status FROM customers c JOIN orders o ON c.customer_id = o.customer_id JOIN payments p ON o.order_id = p.order_id;",
+    "row_count": 1000
+  },
+  {
+    "id": 41,
+    "tier": "aggregation",
+    "question": "What is the total revenue, grouped by order status?",
+    "sql": "SELECT status, SUM(total_amount) FROM orders GROUP BY status;",
+    "row_count": 3
+  },
+  {
+    "id": 42,
+    "tier": "aggregation",
+    "question": "How many orders has each restaurant received?",
+    "sql": "SELECT r.name, COUNT(o.order_id) AS order_count FROM restaurants r JOIN orders o ON r.restaurant_id = o.restaurant_id GROUP BY r.name;",
+    "row_count": 47
+  },
+  {
+    "id": 43,
+    "tier": "aggregation",
+    "question": "What is the average order total per customer city?",
+    "sql": "SELECT c.city, AVG(o.total_amount) FROM customers c JOIN orders o ON c.customer_id = o.customer_id GROUP BY c.city;",
+    "row_count": 6
+  },
+  {
+    "id": 44,
+    "tier": "aggregation",
+    "question": "How many menu items does each restaurant offer?",
+    "sql": "SELECT r.name, COUNT(m.item_id) AS item_count FROM restaurants r JOIN menu_items m ON r.restaurant_id = m.restaurant_id GROUP BY r.name;",
+    "row_count": 49
+  },
+  {
+    "id": 45,
+    "tier": "aggregation",
+    "question": "What is the average driver rating for each vehicle type?",
+    "sql": "SELECT d.vehicle_type, AVG(rt.driver_rating) FROM ratings rt JOIN orders o ON rt.order_id = o.order_id JOIN drivers d ON o.driver_id = d.driver_id GROUP BY d.vehicle_type;",
+    "row_count": 3
+  },
+  {
+    "id": 46,
+    "tier": "aggregation",
+    "question": "How many orders were placed by customers in each loyalty tier?",
+    "sql": "SELECT c.loyalty_tier, COUNT(o.order_id) FROM customers c JOIN orders o ON c.customer_id = o.customer_id GROUP BY c.loyalty_tier;",
+    "row_count": 4
+  },
+  {
+    "id": 47,
+    "tier": "aggregation",
+    "question": "What is the total quantity of items sold per menu category?",
+    "sql": "SELECT m.category, SUM(oi.quantity) FROM order_items oi JOIN menu_items m ON oi.item_id = m.item_id GROUP BY m.category;",
+    "row_count": 5
+  },
+  {
+    "id": 48,
+    "tier": "aggregation",
+    "question": "How many active drivers are there in each city?",
+    "sql": "SELECT city, COUNT(*) FROM drivers WHERE is_active = TRUE GROUP BY city;",
+    "row_count": 6
+  },
+  {
+    "id": 49,
+    "tier": "aggregation",
+    "question": "What is the average menu item price per restaurant, for restaurants with more than 10 items?",
+    "sql": "SELECT r.name, AVG(m.price) FROM restaurants r JOIN menu_items m ON r.restaurant_id = m.restaurant_id GROUP BY r.name HAVING COUNT(m.item_id) > 10;",
+    "row_count": 20
+  },
+  {
+    "id": 50,
+    "tier": "aggregation",
+    "question": "How many times has each promo code been applied?",
+    "sql": "SELECT p.code, COUNT(op.order_id) FROM promotions p JOIN order_promotions op ON p.promo_id = op.promo_id GROUP BY p.code;",
+    "row_count": 18
+  },
+  {
+    "id": 51,
+    "tier": "aggregation",
+    "question": "What is the total amount collected per payment method?",
+    "sql": "SELECT payment_method, SUM(amount) FROM payments GROUP BY payment_method;",
+    "row_count": 4
+  },
+  {
+    "id": 52,
+    "tier": "aggregation",
+    "question": "How many ratings has each restaurant received, and what's the average rating?",
+    "sql": "SELECT o.restaurant_id, COUNT(rt.rating_id), AVG(rt.restaurant_rating) FROM ratings rt JOIN orders o ON rt.order_id = o.order_id GROUP BY o.restaurant_id;",
+    "row_count": 47
+  },
+  {
+    "id": 53,
+    "tier": "aggregation",
+    "question": "What is the number of orders per cuisine type?",
+    "sql": "SELECT r.cuisine_type, COUNT(o.order_id) FROM restaurants r JOIN orders o ON r.restaurant_id = o.restaurant_id GROUP BY r.cuisine_type;",
+    "row_count": 8
+  },
+  {
+    "id": 54,
+    "tier": "aggregation",
+    "question": "How many shifts did each driver work, from most to fewest?",
+    "sql": "SELECT driver_id, COUNT(*) AS shift_count FROM driver_shifts GROUP BY driver_id ORDER BY shift_count DESC;",
+    "row_count": 40
+  },
+  {
+    "id": 55,
+    "tier": "aggregation",
+    "question": "How many order_items records exist per order status?",
+    "sql": "SELECT o.status, COUNT(oi.order_item_id) FROM orders o JOIN order_items oi ON o.order_id = oi.order_id GROUP BY o.status;",
+    "row_count": 3
+  },
+  {
+    "id": 56,
+    "tier": "aggregation",
+    "question": "What is the highest order total placed in each customer city?",
+    "sql": "SELECT c.city, MAX(o.total_amount) FROM customers c JOIN orders o ON c.customer_id = o.customer_id GROUP BY c.city;",
+    "row_count": 6
+  },
+  {
+    "id": 57,
+    "tier": "aggregation",
+    "question": "How many customers are there per loyalty tier?",
+    "sql": "SELECT loyalty_tier, COUNT(*) FROM customers GROUP BY loyalty_tier;",
+    "row_count": 4
+  },
+  {
+    "id": 58,
+    "tier": "aggregation",
+    "question": "What is the average discount percentage of promotions, grouped by whether they're still active?",
+    "sql": "SELECT (end_date >= CURRENT_DATE) AS is_active_promo, AVG(discount_pct) FROM promotions GROUP BY is_active_promo;",
+    "row_count": 2
+  },
+  {
+    "id": 59,
+    "tier": "aggregation",
+    "question": "How many delivered orders did each driver complete?",
+    "sql": "SELECT driver_id, COUNT(*) FROM orders WHERE status = 'delivered' GROUP BY driver_id;",
+    "row_count": 38
+  },
+  {
+    "id": 60,
+    "tier": "aggregation",
+    "question": "What is the total revenue generated by each restaurant, highest to lowest?",
+    "sql": "SELECT r.name, SUM(o.total_amount) AS revenue FROM restaurants r JOIN orders o ON r.restaurant_id = o.restaurant_id GROUP BY r.name ORDER BY revenue DESC;",
+    "row_count": 47
+  },
+  {
+    "id": 61,
+    "tier": "nested_subquery",
+    "question": "Which restaurants have an average rating higher than the overall average restaurant rating?",
+    "sql": "SELECT name FROM restaurants WHERE avg_rating > (SELECT AVG(avg_rating) FROM restaurants);",
+    "row_count": 24
+  },
+  {
+    "id": 62,
+    "tier": "nested_subquery",
+    "question": "List customers who have never placed an order.",
+    "sql": "SELECT name FROM customers WHERE customer_id NOT IN (SELECT customer_id FROM orders);",
+    "row_count": 2
+  },
+  {
+    "id": 63,
+    "tier": "nested_subquery",
+    "question": "List drivers who completed more deliveries than the average number of deliveries per driver.",
+    "sql": "SELECT name FROM drivers WHERE driver_id IN (SELECT driver_id FROM orders WHERE status = 'delivered' GROUP BY driver_id HAVING COUNT(*) > (SELECT AVG(cnt) FROM (SELECT COUNT(*) AS cnt FROM orders WHERE status = 'delivered' GROUP BY driver_id) t));",
+    "row_count": 21
+  },
+  {
+    "id": 64,
+    "tier": "nested_subquery",
+    "question": "List menu items priced above the average price of items from the same restaurant.",
+    "sql": "SELECT m1.name FROM menu_items m1 WHERE m1.price > (SELECT AVG(m2.price) FROM menu_items m2 WHERE m2.restaurant_id = m1.restaurant_id);",
+    "row_count": 254
+  },
+  {
+    "id": 65,
+    "tier": "nested_subquery",
+    "question": "Which restaurants have never had an order placed?",
+    "sql": "SELECT name FROM restaurants WHERE restaurant_id NOT IN (SELECT restaurant_id FROM orders);",
+    "row_count": 3
+  },
+  {
+    "id": 66,
+    "tier": "nested_subquery",
+    "question": "List customers whose total spending exceeds the average total spending across all customers.",
+    "sql": "SELECT c.name FROM customers c WHERE (SELECT SUM(o.total_amount) FROM orders o WHERE o.customer_id = c.customer_id) > (SELECT AVG(customer_total) FROM (SELECT SUM(total_amount) AS customer_total FROM orders GROUP BY customer_id) t);",
+    "row_count": 90
+  },
+  {
+    "id": 67,
+    "tier": "nested_subquery",
+    "question": "Which promotions have never been applied to any order?",
+    "sql": "SELECT code FROM promotions WHERE promo_id NOT IN (SELECT promo_id FROM order_promotions);",
+    "row_count": 2
+  },
+  {
+    "id": 68,
+    "tier": "nested_subquery",
+    "question": "List drivers whose average rating is below the overall average driver rating.",
+    "sql": "SELECT name FROM drivers WHERE avg_rating < (SELECT AVG(avg_rating) FROM drivers);",
+    "row_count": 19
+  },
+  {
+    "id": 69,
+    "tier": "nested_subquery",
+    "question": "Which orders had a total amount greater than the average total amount of delivered orders?",
+    "sql": "SELECT order_id FROM orders WHERE total_amount > (SELECT AVG(total_amount) FROM orders WHERE status = 'delivered');",
+    "row_count": 459
+  },
+  {
+    "id": 70,
+    "tier": "nested_subquery",
+    "question": "List customers who placed at least one order at a restaurant rated above 4.5.",
+    "sql": "SELECT DISTINCT c.name FROM customers c JOIN orders o ON c.customer_id = o.customer_id WHERE o.restaurant_id IN (SELECT restaurant_id FROM restaurants WHERE avg_rating > 4.5);",
+    "row_count": 143
+  },
+  {
+    "id": 71,
+    "tier": "nested_subquery",
+    "question": "Which menu items have never been ordered?",
+    "sql": "SELECT name FROM menu_items WHERE item_id NOT IN (SELECT item_id FROM order_items);",
+    "row_count": 43
+  },
+  {
+    "id": 72,
+    "tier": "nested_subquery",
+    "question": "List restaurants whose number of orders is above the average number of orders per restaurant.",
+    "sql": "SELECT r.name FROM restaurants r WHERE (SELECT COUNT(*) FROM orders o WHERE o.restaurant_id = r.restaurant_id) > (SELECT AVG(order_count) FROM (SELECT COUNT(*) AS order_count FROM orders GROUP BY restaurant_id) t);",
+    "row_count": 22
+  },
+  {
+    "id": 73,
+    "tier": "nested_subquery",
+    "question": "List customers who have more than one address on file.",
+    "sql": "SELECT c.name FROM customers c WHERE (SELECT COUNT(*) FROM addresses a WHERE a.customer_id = c.customer_id) > 1;",
+    "row_count": 101
+  },
+  {
+    "id": 74,
+    "tier": "nested_subquery",
+    "question": "List drivers who worked more shifts than the average number of shifts per driver.",
+    "sql": "SELECT name FROM drivers WHERE driver_id IN (SELECT driver_id FROM driver_shifts GROUP BY driver_id HAVING COUNT(*) > (SELECT AVG(shift_count) FROM (SELECT COUNT(*) AS shift_count FROM driver_shifts GROUP BY driver_id) t));",
+    "row_count": 15
+  },
+  {
+    "id": 75,
+    "tier": "nested_subquery",
+    "question": "List orders that used a promotion with a discount above the average discount of all promotions.",
+    "sql": "SELECT o.order_id FROM orders o JOIN order_promotions op ON o.order_id = op.order_id JOIN promotions p ON op.promo_id = p.promo_id WHERE p.discount_pct > (SELECT AVG(discount_pct) FROM promotions);",
+    "row_count": 130
+  },
+  {
+    "id": 76,
+    "tier": "nested_subquery",
+    "question": "List restaurants with fewer menu items than the average number of items per restaurant.",
+    "sql": "SELECT r.name FROM restaurants r WHERE (SELECT COUNT(*) FROM menu_items m WHERE m.restaurant_id = r.restaurant_id) < (SELECT AVG(item_count) FROM (SELECT COUNT(*) AS item_count FROM menu_items GROUP BY restaurant_id) t);",
+    "row_count": 30
+  },
+  {
+    "id": 77,
+    "tier": "nested_subquery",
+    "question": "List customers who have never left a rating.",
+    "sql": "SELECT name FROM customers WHERE customer_id NOT IN (SELECT customer_id FROM ratings);",
+    "row_count": 14
+  },
+  {
+    "id": 78,
+    "tier": "nested_subquery",
+    "question": "Which orders had more items than the average number of items per order?",
+    "sql": "SELECT order_id FROM order_items GROUP BY order_id HAVING COUNT(*) > (SELECT AVG(cnt) FROM (SELECT COUNT(*) AS cnt FROM order_items GROUP BY order_id) t);",
+    "row_count": 568
+  },
+  {
+    "id": 79,
+    "tier": "nested_subquery",
+    "question": "List restaurants whose average menu item price is above the overall average menu item price.",
+    "sql": "SELECT r.name FROM restaurants r WHERE (SELECT AVG(m.price) FROM menu_items m WHERE m.restaurant_id = r.restaurant_id) > (SELECT AVG(price) FROM menu_items);",
+    "row_count": 25
+  },
+  {
+    "id": 80,
+    "tier": "nested_subquery",
+    "question": "Which drivers have never been assigned to a delivered order?",
+    "sql": "SELECT name FROM drivers WHERE driver_id NOT IN (SELECT driver_id FROM orders WHERE status = 'delivered');",
+    "row_count": 2
+  },
+  {
+    "id": 81,
+    "tier": "ambiguous",
+    "question": "Who are our best customers?",
+    "sql": "SELECT c.name, SUM(o.total_amount) AS total_spent FROM customers c JOIN orders o ON c.customer_id = o.customer_id GROUP BY c.customer_id, c.name ORDER BY total_spent DESC, c.customer_id ASC LIMIT 5;",
+    "row_count": 5
+  },
+  {
+    "id": 82,
+    "tier": "ambiguous",
+    "question": "Which restaurants are struggling?",
+    "sql": "SELECT name, avg_rating FROM restaurants WHERE avg_rating < 3.0;",
+    "row_count": 11
+  },
+  {
+    "id": 83,
+    "tier": "ambiguous",
+    "question": "How's business been lately?",
+    "sql": "SELECT SUM(total_amount) FROM orders WHERE order_time >= CURRENT_DATE - INTERVAL '30 days';",
+    "row_count": 1
+  },
+  {
+    "id": 84,
+    "tier": "ambiguous",
+    "question": "Who are our top drivers?",
+    "sql": "SELECT name, avg_rating FROM drivers ORDER BY avg_rating DESC, driver_id ASC LIMIT 5;",
+    "row_count": 5
+  },
+  {
+    "id": 85,
+    "tier": "ambiguous",
+    "question": "What's popular on the menu?",
+    "sql": "SELECT m.name, SUM(oi.quantity) AS total_ordered FROM menu_items m JOIN order_items oi ON m.item_id = oi.item_id GROUP BY m.item_id, m.name ORDER BY total_ordered DESC, m.item_id ASC LIMIT 5;",
+    "row_count": 5
+  },
+  {
+    "id": 86,
+    "tier": "ambiguous",
+    "question": "Are customers happy with delivery?",
+    "sql": "SELECT AVG(driver_rating) FROM ratings;",
+    "row_count": 1
+  },
+  {
+    "id": 87,
+    "tier": "ambiguous",
+    "question": "Which city is our biggest market?",
+    "sql": "SELECT c.city, COUNT(o.order_id) AS order_count FROM customers c JOIN orders o ON c.customer_id = o.customer_id GROUP BY c.city ORDER BY order_count DESC, c.city ASC LIMIT 1;",
+    "row_count": 1
+  },
+  {
+    "id": 88,
+    "tier": "ambiguous",
+    "question": "Do promotions actually help drive bigger orders?",
+    "sql": "SELECT AVG(o.total_amount) FROM orders o JOIN order_promotions op ON o.order_id = op.order_id;",
+    "row_count": 1
+  },
+  {
+    "id": 89,
+    "tier": "ambiguous",
+    "question": "Who's underperforming among our drivers?",
+    "sql": "SELECT name, avg_rating FROM drivers WHERE avg_rating < 3.5;",
+    "row_count": 11
+  },
+  {
+    "id": 90,
+    "tier": "ambiguous",
+    "question": "What kind of food do people order most?",
+    "sql": "SELECT r.cuisine_type, COUNT(o.order_id) AS order_count FROM restaurants r JOIN orders o ON r.restaurant_id = o.restaurant_id GROUP BY r.cuisine_type ORDER BY order_count DESC, r.cuisine_type ASC LIMIT 1;",
+    "row_count": 1
+  },
+  {
+    "id": 91,
+    "tier": "ambiguous",
+    "question": "What fraction of our orders don't go through?",
+    "sql": "SELECT CAST(SUM(CASE WHEN status = 'cancelled' THEN 1 ELSE 0 END) AS FLOAT) / COUNT(*) FROM orders;",
+    "row_count": 1
+  },
+  {
+    "id": 92,
+    "tier": "ambiguous",
+    "question": "Which customers should we reward for loyalty?",
+    "sql": "SELECT c.name FROM customers c JOIN orders o ON c.customer_id = o.customer_id WHERE c.loyalty_tier = 'platinum' GROUP BY c.name HAVING COUNT(o.order_id) > 5;",
+    "row_count": 16
+  },
+  {
+    "id": 93,
+    "tier": "ambiguous",
+    "question": "How fast is delivery, typically?",
+    "sql": "SELECT AVG(date_diff('minute', order_time, delivery_time)) FROM orders WHERE status = 'delivered';",
+    "row_count": 1
+  },
+  {
+    "id": 94,
+    "tier": "ambiguous",
+    "question": "Which restaurants bring in the most money?",
+    "sql": "SELECT r.name, SUM(o.total_amount) AS revenue FROM restaurants r JOIN orders o ON r.restaurant_id = o.restaurant_id GROUP BY r.restaurant_id, r.name ORDER BY revenue DESC, r.restaurant_id ASC LIMIT 5;",
+    "row_count": 5
+  },
+  {
+    "id": 95,
+    "tier": "ambiguous",
+    "question": "Are drivers keeping busy?",
+    "sql": "SELECT AVG(shift_count) FROM (SELECT driver_id, COUNT(*) AS shift_count FROM driver_shifts GROUP BY driver_id) t;",
+    "row_count": 1
+  },
+  {
+    "id": 96,
+    "tier": "ambiguous",
+    "question": "What's our most common way customers pay?",
+    "sql": "SELECT payment_method, COUNT(*) AS cnt FROM payments GROUP BY payment_method ORDER BY cnt DESC, payment_method ASC LIMIT 1;",
+    "row_count": 1
+  },
+  {
+    "id": 97,
+    "tier": "ambiguous",
+    "question": "How many people ordered dessert recently?",
+    "sql": "SELECT COUNT(DISTINCT o.customer_id) FROM orders o JOIN order_items oi ON o.order_id = oi.order_id JOIN menu_items m ON oi.item_id = m.item_id WHERE m.category = 'dessert' AND o.order_time >= CURRENT_DATE - INTERVAL '30 days';",
+    "row_count": 1
+  },
+  {
+    "id": 98,
+    "tier": "ambiguous",
+    "question": "Who are the most active drivers this month?",
+    "sql": "SELECT d.name, COUNT(o.order_id) AS deliveries FROM drivers d JOIN orders o ON d.driver_id = o.driver_id WHERE o.status = 'delivered' AND o.order_time >= CURRENT_DATE - INTERVAL '30 days' GROUP BY d.driver_id, d.name ORDER BY deliveries DESC, d.driver_id ASC LIMIT 5;",
+    "row_count": 5
+  },
+  {
+    "id": 99,
+    "tier": "ambiguous",
+    "question": "Is our discount strategy working?",
+    "sql": "SELECT COUNT(*) FROM order_promotions;",
+    "row_count": 1
+  },
+  {
+    "id": 100,
+    "tier": "ambiguous",
+    "question": "Which restaurants get the worst customer feedback?",
+    "sql": "SELECT o.restaurant_id, COUNT(*) AS low_ratings FROM ratings rt JOIN orders o ON rt.order_id = o.order_id WHERE rt.restaurant_rating <= 2 GROUP BY o.restaurant_id ORDER BY low_ratings DESC;",
+    "row_count": 47
+  }
+]
